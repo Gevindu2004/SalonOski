@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Salon Oski</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Local overrides for services page */
+        .service-section {
+            padding: 4rem 10%;
+        }
+
+        .service-section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+
+
+        .service-img {
+            object-fit: cover;
+            height: 500px;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="nav-light">
+        <h1><img src="/images/logo.jpg" alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+            Salon Oski</h1>
+        <nav>
+            <a href="/home">Home</a>
+            <a href="/services" class="text-accent">Services</a>
+            <a href="/appointment">Appointments</a>
+            <a href="/about">About Us</a>
+            <a href="/ai-hairstyle">AI Hair Design</a>
+        </nav>
+        <a href="/login" class="btn-purple" style="margin-left:auto;">Login</a>
+    </header>
+
+    <main style="padding-top: 80px;">
+        <div style="text-align: center; padding: 3rem 1rem; background: #fff;">
+            <h2 style="font-size: 3rem; color: #333; margin-bottom: 1rem;">Our Services</h2>
+            <p style="color: #666; max-width: 600px; margin: 0 auto;">Discover our range of premium beauty and hair
+                services designed to help you look and feel your best.</p>
+        </div>
+
+        <!--Hair Styling -->
+        <section class="section-transform service-section">
+            <div class="content">
+                <h2>Hair Styling & Cutting</h2>
+                <p>Experience the art of hair design with our expert stylists. Whether you're looking for a refreshing
+                    trim, a bold new bob, or layers that add volume, we tailor every cut to suit your face shape and
+                    lifestyle.</p>
+                <p>We start with a consultation to understand your vision, ensuring you leave with a look that gives you
+                    confidence.</p>
+                <a href="/appointment" class="btn-purple">Book Appointment</a>
+            </div>
+            <img src="/images/haircuting.jpg" alt="Hair Styling" class="service-img">
+        </section>
+
+        <!--Hair Coloring -->
+        <section class="section-transform service-section">
+            <div class="content">
+                <h2>Hair Coloring</h2>
+                <p>Transform your look with our professional coloring services. From subtle balayage and sun-kissed
+                    highlights to vibrant fashion colors, we use premium, damage-free formulas.</p>
+                <p>Our colorists are masters of shade selection, ensuring perfectly blended results that enhance your
+                    natural beauty.</p>
+                <a href="/appointment" class="btn-purple">Book Appointment</a>
+            </div>
+            <img src="/images/haircoloring.jpg" alt="Hair Coloring" class="service-img">
+        </section>
+
+        <!-- Service 6: Massage -->
+        <section class="section-transform service-section">
+            <div class="content">
+                <h2>Head Massage</h2>
+                <p>Relieve stress and tension with our therapeutic massage services. Our trained therapists use
+                    techniques that improve circulation and promote deep relaxation.</p>
+                <p>Perfect for unwinding after a long week or as a treat to yourself.</p>
+                <a href="/appointment" class="btn-purple">Book Appointment</a>
+            </div>
+            <img src="/images/Massage.jpg" alt="Massage" class="service-img">
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Salon Oski</p>
+    </footer>
+
+</body>
+
+</html>

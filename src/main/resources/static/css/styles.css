@@ -1,0 +1,492 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header / Nav (Transparent Overlay) */
+header {
+    position: fixed;
+    /* Changed from absolute to fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 40px;
+    z-index: 1000;
+    /* Increased z-index */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+header h1 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+header nav a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #ffffff;
+    /* Match button green */
+}
+
+/* Nav Light Theme (for pages with white background) */
+.nav-light {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-light h1,
+.nav-light nav a {
+    color: #000 !important;
+}
+
+.nav-light nav a:hover {
+    color: #00000b !important;
+    /* Purple hover for home page */
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-image: url('../images/Welcome-page.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+/* Dark Overlay for Readability */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+/* Hero Content (Above Overlay) */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+.hero h2 {
+    font-family: 'Times New Roman', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.hero-logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 1.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    /* Optional: if they want it round, but standard logo usually square/rect. Let's stick to simple first */
+    animation: float 3s ease-in-out infinite;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #00000b;
+    color: white;
+    padding: 12px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    animation: float 2s ease-in-out infinite;
+    box-shadow: 0 5px 15px rgb(0, 0, 11);
+}
+
+.btn:hover {
+    background-color: #00000b;
+    animation-play-state: paused;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+        box-shadow: 0 5px 15px rgb(0, 0, 11);
+    }
+
+    50% {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 15px rgb(0, 0, 11);
+    }
+
+    100% {
+        transform: translateY(0px);
+        box-shadow: 0 5px 15px rgb(0, 0, 11);
+    }
+}
+
+/* Footer (Simple, minimal) */
+footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    z-index: 2;
+    font-size: 0.8rem;
+}
+
+/* Other Pages Container */
+main:not(.hero-main) {
+    padding: 80px 0 0;
+    /* Adjusted padding */
+}
+
+/* Home Page Specific */
+.hero-home {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/home_hero.png');
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Left align content */
+    padding: 0 10%;
+    color: white;
+}
+
+.hero-home .hero-content {
+    text-align: left;
+    max-width: 600px;
+}
+
+.hero-home h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.hero-home p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-purple {
+    background-color: #00000b;
+    /* Purple accent */
+    color: white;
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-purple:hover {
+    background-color: #00000b;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 28px;
+    border-radius: 5px;
+    /* Boxy aesthetic from reference */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Sections */
+.section-transform {
+    display: flex;
+    align-items: center;
+    padding: 5rem 10%;
+    gap: 4rem;
+    background: white;
+}
+
+.section-transform img {
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.section-transform .content {
+    width: 50%;
+}
+
+.section-transform h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-transform p {
+    margin-bottom: 1.5rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.text-accent {
+    color: #00000b;
+    /* Updated to black as per nav change */
+}
+
+/* Why Choose Us Section */
+.section-features {
+    padding: 5rem 10%;
+    background-color: #f8f9fa;
+    /* Light gray background */
+    text-align: center;
+}
+
+.section-features h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    /* black accent for icons */
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1.5rem;
+    color: #00000b;
+
+}
+
+/* SVG Fill Color */
+.feature-icon svg {
+    fill: currentColor;
+    width: 100%;
+    height: 100%;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Appointment Page */
+.appointment-section {
+    padding: 8rem 0 5rem;
+    /* Top padding to account for fixed header */
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/home_hero.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.appointment-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.appointment-card h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #00000b;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+/* AI Page */
+.ai-section {
+    padding: 8rem 0 5rem;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/home_hero.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+}
+
+.ai-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #333;
+}
+
+.upload-container {
+    border: 2px dashed #00000b;
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 2rem 0;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.upload-container:hover {
+    background: #f0f0f0;
+}
+
+.upload-container input[type="file"] {
+    display: none;
+}
+
+.upload-label {
+    cursor: pointer;
+    color: #555;
+    font-weight: 500;
+    display: block;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: #00000b;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.preview-container img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.result-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: #f8f9fa;
+    border-left: 5px solid #00000b;
+    text-align: left;
+}
+
+.result-box h3 {
+    color: #00000b;
+    margin-bottom: 0.5rem;
+}
