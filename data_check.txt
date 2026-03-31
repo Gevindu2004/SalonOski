@@ -1,0 +1,4 @@
+appointment_id	customer_name	customer_phone	appointment_date	appointment_time	service	status	user_id
+1	Gevindu Jayarathne	0751596794	2026-02-23	21:00:00	haircut	ACCEPTED	NULL
+2	Gevindu Jayarathne	0751596794	2026-02-24	23:00:00	haircut	PENDING	NULL
+3	Gevindu Jayarathne	0751596794	2026-02-24	23:00:00	haircut	PENDING	1

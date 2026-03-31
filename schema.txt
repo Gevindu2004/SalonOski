@@ -1,0 +1,9 @@
+Field	Type	Null	Key	Default	Extra
+appointment_id	bigint	NO	PRI	NULL	auto_increment
+customer_name	varchar(255)	NO		NULL	
+customer_phone	varchar(255)	NO		NULL	
+appointment_date	date	NO		NULL	
+appointment_time	time	NO		NULL	
+service	varchar(255)	NO		NULL	
+status	varchar(255)	NO		NULL	
+user_id	bigint	YES	MUL	NULL	
