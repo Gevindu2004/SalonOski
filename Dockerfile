@@ -1,12 +1,31 @@
-FROM eclipse-temurin:21-jdk-alpine AS builder
-# If Java 24 is strictly required, you might need a different base image, e.g., ubuntu with openjdk-24
+# Stage 1: Build the application
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
-COPY . .
-RUN chmod +x ./gradlew
-RUN ./gradlew build -x test
 
-FROM eclipse-temurin:21-jre-alpine
+# Copy the gradle wrappers and settings
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+
+# Make the wrapper executable
+RUN chmod +x gradlew
+
+# Copy the actual application source code
+COPY src src
+
+# Build the application
+RUN ./gradlew clean build -x test
+
+# Stage 2: Create the runtime image
+FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=builder /app/build/libs/*.jar app.jar
+
+# Copy the built jar file from the build stage
+COPY --from=build /app/build/libs/*.jar app.jar
+
+# Expose port (must match Render's expectations or your server.port)
 EXPOSE 8080
+
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
