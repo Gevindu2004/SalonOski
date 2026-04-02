@@ -26,6 +26,7 @@ COPY --from=build /app/build/libs/*.jar app.jar
 
 # Expose port (must match Render's expectations or your server.port)
 EXPOSE 8080
+ENV SPRING_PROFILES_ACTIVE=prod
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

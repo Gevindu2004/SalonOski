@@ -37,6 +37,4 @@ out/
 .vscode/
 
 ### Custom Ignores ###
-src/main/resources/application.properties
 .env
-!src/main/resources/application.properties.example
