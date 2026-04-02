@@ -30,7 +30,7 @@ public class OAuth2ClientConfiguration {
     }
 
     private ClientRegistration buildRegistration(String registrationId, OAuth2ProviderProperties.ProviderSettings settings) {
-        if (settings == null || !settings.isConfigured()) {
+        if (settings == null || !settings.isConfigured() || settings.getClientId() == null || settings.getClientId().isBlank()) {
             return null;
         }
 
@@ -86,6 +86,7 @@ public class OAuth2ClientConfiguration {
 
         builder.clientId(settings.getClientId());
         builder.clientSecret(settings.getClientSecret());
+        builder.redirectUri("{baseUrl}/login/oauth2/code/{registrationId}");
         builder.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST);
         builder.scope(resolveScopes(settings));
         builder.clientName(settings.getClientName() == null || settings.getClientName().isBlank() ? "Apple" : settings.getClientName());

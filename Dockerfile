@@ -25,7 +25,7 @@ WORKDIR /app
 COPY --from=build /app/build/libs/*-SNAPSHOT.jar app.jar
 
 # Expose port (must match Render's expectations or your server.port)
-EXPOSE 8080
+EXPOSE 7860
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
