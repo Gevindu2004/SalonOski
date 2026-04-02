@@ -21,8 +21,8 @@ RUN ./gradlew clean build -x test
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the built jar file from the build stage
-COPY --from=build /app/build/libs/*.jar app.jar
+# Copy the built jar file from the build stage (ignoring the plain.jar)
+COPY --from=build /app/build/libs/*-SNAPSHOT.jar app.jar
 
 # Expose port (must match Render's expectations or your server.port)
 EXPOSE 8080
