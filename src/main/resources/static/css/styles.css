@@ -1691,3 +1691,83 @@ input:checked + .availability-slider:before {
         font-size: 0.95rem;
     }
 }
+/* ---- GLOBAL MOBILE RESPONSIVE STYLES ---- */
+@media (max-width: 800px) {
+    /* Header & Navigation */
+    header {
+        flex-direction: column;
+        padding: 15px;
+        gap: 10px;
+    }
+    header nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    header nav a {
+        margin-left: 0;
+        margin: 5px;
+        font-size: 0.85rem;
+    }
+    .profile-dropdown, .btn {
+        margin-left: 0 !important;
+        margin: 5px auto;
+    }
+    
+    /* Hero & Headings */
+    .hero h2, .hero-home h2 {
+        font-size: 2.2rem !important;
+    }
+    .hero p, .hero-home p {
+        font-size: 1rem !important;
+    }
+    .hero-home {
+        padding: 0 20px;
+        text-align: center;
+        justify-content: center;
+    }
+    .hero-home .hero-content {
+        text-align: center;
+        margin-top: 50px;
+    }
+    
+    /* Sections Container Adjustments */
+    .section-transform {
+        flex-direction: column;
+        padding: 3rem 20px;
+        gap: 2rem;
+    }
+    .section-transform img, .section-transform .content {
+        width: 100%;
+    }
+    .section-transform h2 {
+        font-size: 1.8rem;
+    }
+    
+    /* Main Content Padding & Cards */
+    .appointment-section, .ai-section, .feedback-section {
+        padding: 140px 15px 3rem;
+    }
+    .appointment-card, .ai-card, .feedback-card {
+        padding: 20px;
+        width: 100%;
+    }
+    
+    /* Forms, Buttons, and Grids */
+    .slots-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+    .btn-purple, .btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+    main:not(.hero-main) {
+        padding: 140px 0 0;
+    }
+}
