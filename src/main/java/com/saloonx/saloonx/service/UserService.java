@@ -4,7 +4,6 @@ import com.saloonx.saloonx.model.Beautician;
 import com.saloonx.saloonx.model.User;
 import com.saloonx.saloonx.repository.AppointmentRepository;
 import com.saloonx.saloonx.repository.BeauticianRepository;
-import com.saloonx.saloonx.repository.FeedbackRepository;
 import com.saloonx.saloonx.repository.NotificationRepository;
 import com.saloonx.saloonx.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
@@ -37,9 +36,6 @@ public class UserService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
-
-    @Autowired
-    private FeedbackRepository feedbackRepository;
 
     @Autowired
     private NotificationService notificationService;
@@ -237,27 +233,11 @@ public class UserService {
     }
 
     @Transactional
-    public User awardReviewSubmission(User user) {
-        user.setLoyaltyPoints(safeInt(user.getLoyaltyPoints()) + REVIEW_REWARD_POINTS);
-        user.setReviewsSubmitted(Math.max(safeInt(user.getReviewsSubmitted()) + 1,
-                (int) feedbackRepository.countByEmailIgnoreCase(user.getEmail())));
-        refreshGamification(user);
-        User savedUser = userRepository.save(user);
-        notificationService.sendUserNotification(
-                "You earned " + REVIEW_REWARD_POINTS + " loyalty points for sharing feedback.",
-                savedUser);
-        return savedUser;
-    }
-
-    @Transactional
     public void refreshGamification(User user) {
         int completedAppointments = Math.max(safeInt(user.getAppointmentsCompleted()),
                 (int) appointmentRepository.countByUserIdAndStatus(user.getId(), "COMPLETED"));
-        int submittedReviews = Math.max(safeInt(user.getReviewsSubmitted()),
-                (int) feedbackRepository.countByEmailIgnoreCase(user.getEmail()));
 
         user.setAppointmentsCompleted(completedAppointments);
-        user.setReviewsSubmitted(submittedReviews);
         user.setAchievementBadges(String.join(",", determineBadges(user)));
     }
 
@@ -271,7 +251,6 @@ public class UserService {
         summary.put("referralCode", user.getReferralCode());
         summary.put("referredByCode", user.getReferredByCode());
         summary.put("appointmentsCompleted", safeInt(user.getAppointmentsCompleted()));
-        summary.put("reviewsSubmitted", safeInt(user.getReviewsSubmitted()));
         summary.put("referralsCompleted", safeInt(user.getReferralsCompleted()));
         summary.put("loginCount", safeInt(user.getLoginCount()));
         summary.put("badges", getBadgeList(user));
@@ -302,7 +281,6 @@ public class UserService {
 
     public String determineNextBadge(User user) {
         int appointments = safeInt(user.getAppointmentsCompleted());
-        int reviews = safeInt(user.getReviewsSubmitted());
         int referrals = safeInt(user.getReferralsCompleted());
 
         if (appointments < 1) {
@@ -314,9 +292,6 @@ public class UserService {
         if (appointments < 10) {
             return "VIP";
         }
-        if (reviews < 5) {
-            return "Reviewer";
-        }
         if (referrals < 3) {
             return "Social Butterfly";
         }
@@ -326,7 +301,6 @@ public class UserService {
     private List<String> determineBadges(User user) {
         List<String> badges = new ArrayList<>();
         int appointments = safeInt(user.getAppointmentsCompleted());
-        int reviews = safeInt(user.getReviewsSubmitted());
         int referrals = safeInt(user.getReferralsCompleted());
 
         if (appointments >= 1) {
@@ -337,9 +311,6 @@ public class UserService {
         }
         if (appointments >= 10) {
             badges.add("VIP");
-        }
-        if (reviews >= 5) {
-            badges.add("Reviewer");
         }
         if (referrals >= 3) {
             badges.add("Social Butterfly");

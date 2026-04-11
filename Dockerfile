@@ -21,10 +21,34 @@ RUN ./gradlew clean build -x test
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the built jar file from the build stage (ignoring the plain.jar)
+# Install Python 3, pip, and OpenGL libraries required for OpenCV
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python-is-python3 \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install all Machine Learning Dependencies
+RUN pip3 install --no-cache-dir \
+    opencv-python-headless \
+    numpy \
+    requests \
+    torch \
+    torchvision \
+    pillow \
+    timm \
+    --break-system-packages
+
+# Copy the built Java application
 COPY --from=build /app/build/libs/*-SNAPSHOT.jar app.jar
 
-# Expose port (must match Render's expectations or your server.port)
+# Explicitly copy the Python ML script and PyTorch model into the root directory
+COPY member05_integration.py .
+COPY best_model_member04.pth .
+
+# Expose Hugging Face Port
 EXPOSE 7860
 
 # Run the application

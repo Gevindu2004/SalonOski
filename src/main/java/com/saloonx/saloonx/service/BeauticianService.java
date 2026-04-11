@@ -2,7 +2,6 @@ package com.saloonx.saloonx.service;
 
 import com.saloonx.saloonx.model.Appointment;
 import com.saloonx.saloonx.model.Beautician;
-import com.saloonx.saloonx.model.CompanyLog;
 import com.saloonx.saloonx.model.User;
 import com.saloonx.saloonx.repository.AppointmentRepository;
 import com.saloonx.saloonx.repository.BeauticianRepository;
@@ -34,16 +33,7 @@ public class BeauticianService {
     private NotificationService notificationService;
 
     @Autowired
-    private CompanyLogService logService;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
-    private InventoryService inventoryService;
-
-    @Autowired
-    private AccountingService accountingService;
 
     @Transactional
     public Beautician createBeauticianProfile(User user, String phone, String specialization,
@@ -120,13 +110,6 @@ public class BeauticianService {
 
         Beautician updated = beauticianRepository.save(beautician);
 
-        if (changes.length() > 0) {
-            CompanyLog log = new CompanyLog();
-            log.setTitle("Beautician Profile Update");
-            log.setContent("Beautician " + beautician.getEmail() + " updated profile: " + changes);
-            log.setAdminEmail("system@salonoski.com");
-            logService.saveLog(log);
-        }
 
         return updated;
     }
@@ -175,12 +158,6 @@ public class BeauticianService {
                     user);
         }
 
-        CompanyLog log = new CompanyLog();
-        log.setTitle("Beautician Approved");
-        log.setContent("Beautician " + beautician.getEmail() + " approved by " + adminUser.getEmail());
-        log.setAdminEmail(adminUser.getEmail());
-        logService.saveLog(log);
-
         return beauticianRepository.save(beautician);
     }
 
@@ -205,13 +182,6 @@ public class BeauticianService {
                     "Your beautician account needs updates before approval. Review the notes in your profile and resubmit.",
                     user);
         }
-
-        CompanyLog log = new CompanyLog();
-        log.setTitle("Beautician Rejected");
-        log.setContent("Beautician " + beautician.getEmail() + " rejected by " + adminUser.getEmail()
-                + ". Notes: " + beautician.getApprovalNotes());
-        log.setAdminEmail(adminUser.getEmail());
-        logService.saveLog(log);
 
         return beauticianRepository.save(beautician);
     }
@@ -273,18 +243,6 @@ public class BeauticianService {
             }
         }
 
-        if ("COMPLETED".equals(status)) {
-            inventoryService.recordAppointmentUsage(appointment, beautician.getEmail());
-            accountingService.recordServiceIncome(appointment);
-        }
-
-        CompanyLog log = new CompanyLog();
-        log.setTitle("Appointment Status Update");
-        log.setContent(String.format("Appointment #%d status changed from %s to %s by beautician %s",
-                appointmentId, oldStatus, status, beautician.getEmail()));
-        log.setAdminEmail("system@salonoski.com");
-        logService.saveLog(log);
-
         return updated;
     }
 
@@ -309,13 +267,6 @@ public class BeauticianService {
 
         appointment.setBeautician(beautician);
         Appointment updated = appointmentRepository.save(appointment);
-
-        CompanyLog log = new CompanyLog();
-        log.setTitle("Appointment Assignment");
-        log.setContent(String.format("Appointment #%d assigned to beautician %s",
-                appointmentId, beautician.getEmail()));
-        log.setAdminEmail("system@salonoski.com");
-        logService.saveLog(log);
 
         return updated;
     }
@@ -355,11 +306,5 @@ public class BeauticianService {
         }
         notificationService.sendBroadcastNotification(
                 "Admin action required: beautician approval request from " + beautician.getFullName() + " (" + beautician.getEmail() + ")");
-
-        CompanyLog log = new CompanyLog();
-        log.setTitle(title);
-        log.setContent("Beautician approval request submitted for " + beautician.getEmail());
-        log.setAdminEmail("system@salonoski.com");
-        logService.saveLog(log);
     }
 }
